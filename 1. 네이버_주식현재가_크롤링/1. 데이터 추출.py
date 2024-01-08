@@ -15,3 +15,5 @@ for code in codes:
   price = soup.select_one("#_nowVal").text
   price = price.replace(',','')
   print(price)
+
+  # 엑셀 사용 pip install openpyxl
