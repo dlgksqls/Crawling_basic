@@ -28,17 +28,24 @@ service = Service(executable_path=ChromeDriverManager().install())
 browser = webdriver.Chrome(service=service, options=chrom_options)
 
 # 웹사이트 열기
-browser.get('https://www.naver.com')
+browser.get('https://www.naver.com/')
 browser.implicitly_wait(10) # 로딩이 끝날 때까지 10초까지는 기다려줌
-browser.maximize_window()
+
 # 쇼핑 메뉴 클릭
-browser.find_element(By.CSS_SELECTOR,'#shortcutArea > ul > li:nth-child(4) > a > span.service_icon.type_shopping').click()
+browser.find_element(By.CSS_SELECTOR,'.service_icon.type_shopping').click()
 time.sleep(2)
 
+# 새창을 바라보게 만들기
+new_window = browser.window_handles[1]
+browser.switch_to.window(new_window)
+
+# 화면 최대화
+browser.maximize_window()
+
 # 검색창 클릭
-search = browser.find_element(By.CSS_SELECTOR, '._searchInput_search_text_3CUDs')
+search = browser.find_element(By.CSS_SELECTOR, 'input._searchInput_search_text_3CUDs')
 search.click()
 
 # 검색어 입력
-search.send_keys('아이폰 13')
+search.send_keys("아이폰13")
 search.send_keys(Keys.ENTER)
